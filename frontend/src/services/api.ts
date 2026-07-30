@@ -17,7 +17,9 @@ export interface SourceMetadata {
 export interface AskResponse {
   answer: string;
   sources: SourceMetadata[];
+  confidence?: number;
 }
+
 
 export interface DocumentItem {
   id: string;

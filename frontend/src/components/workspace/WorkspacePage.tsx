@@ -140,7 +140,8 @@ export function WorkspacePage() {
         text: response.answer || 'No answer was generated from the uploaded context.',
         sources: response.sources || [],
         createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        confidence: response.sources?.length ? 86 : 54,
+        confidence: typeof response.confidence === 'number' ? response.confidence : (response.sources?.length ? 86 : 54),
+
       }]);
       if (response.sources?.[0]) setSelectedSource(response.sources[0]);
     } catch (error: any) {
