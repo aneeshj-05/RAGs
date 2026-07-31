@@ -31,8 +31,14 @@ RETRIEVER_SCORE_THRESHOLD = float(os.getenv("RETRIEVER_SCORE_THRESHOLD", "0.0"))
 RETRIEVER_MODE = os.getenv("RETRIEVER_MODE", "hybrid")  # "dense" | "sparse" | "hybrid"
 DENSE_WEIGHT = float(os.getenv("DENSE_WEIGHT", "0.5"))
 SPARSE_WEIGHT = float(os.getenv("SPARSE_WEIGHT", "0.5"))
-TOP_K_DENSE = int(os.getenv("TOP_K_DENSE", "8"))
-TOP_K_SPARSE = int(os.getenv("TOP_K_SPARSE", "8"))
+TOP_K_DENSE = int(os.getenv("TOP_K_DENSE", "20"))
+TOP_K_SPARSE = int(os.getenv("TOP_K_SPARSE", "20"))
+
+RERANKER_ENABLED = os.getenv("RERANKER_ENABLED", "true").lower() == "true"
+RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-base")
+TOP_K_CANDIDATES = int(os.getenv("TOP_K_CANDIDATES", "20"))
+TOP_K_FINAL = int(os.getenv("TOP_K_FINAL", "5"))
+
 
 RETRIEVER_SEARCH_KWARGS: Dict[str, int | float] = {
     "k": RETRIEVER_TOP_K,
