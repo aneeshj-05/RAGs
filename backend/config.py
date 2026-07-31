@@ -28,6 +28,12 @@ RETRIEVER_TOP_K = int(os.getenv("RETRIEVER_TOP_K", "8"))
 RETRIEVER_FETCH_K = int(os.getenv("RETRIEVER_FETCH_K", "20"))
 RETRIEVER_SCORE_THRESHOLD = float(os.getenv("RETRIEVER_SCORE_THRESHOLD", "0.0"))
 
+RETRIEVER_MODE = os.getenv("RETRIEVER_MODE", "hybrid")  # "dense" | "sparse" | "hybrid"
+DENSE_WEIGHT = float(os.getenv("DENSE_WEIGHT", "0.5"))
+SPARSE_WEIGHT = float(os.getenv("SPARSE_WEIGHT", "0.5"))
+TOP_K_DENSE = int(os.getenv("TOP_K_DENSE", "8"))
+TOP_K_SPARSE = int(os.getenv("TOP_K_SPARSE", "8"))
+
 RETRIEVER_SEARCH_KWARGS: Dict[str, int | float] = {
     "k": RETRIEVER_TOP_K,
     "fetch_k": RETRIEVER_FETCH_K,
@@ -35,5 +41,6 @@ RETRIEVER_SEARCH_KWARGS: Dict[str, int | float] = {
 
 if RETRIEVER_SEARCH_TYPE == "similarity_score_threshold":
     RETRIEVER_SEARCH_KWARGS["score_threshold"] = RETRIEVER_SCORE_THRESHOLD
+
 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

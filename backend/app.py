@@ -21,6 +21,7 @@ from utils.exceptions import (
     VectorStoreError,
 )
 from utils.logging import configure_logging
+from vectorstore.bm25 import build_bm25_retriever, clear_bm25_retriever
 from vectorstore.chroma import add_documents, clear_collection
 
 configure_logging()
@@ -76,13 +77,16 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     try:
         clear_collection()
+        clear_bm25_retriever()
         documents = process_pdf(str(path))
         add_documents(documents)
+        build_bm25_retriever(documents)
     except DocIntelError:
         raise
     except Exception as exc:
         logger.exception("Failed to process upload: %s", file.filename)
         raise UploadError("Failed to process uploaded PDF.") from exc
+
 
     logger.info("Uploaded %s with %s chunks", path.name, len(documents))
     return {
